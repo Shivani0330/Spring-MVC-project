@@ -1,0 +1,54 @@
+package com.company.config;
+
+import java.util.List;
+import java.util.Properties;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.AbstractPropertyBindingResult;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = { "com.company" })
+public class CompanyMVCConfig implements WebMvcConfigurer {
+
+	@Bean
+	public ViewResolver getViewResolver() {
+		InternalResourceViewResolver resolver=new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
+	/*
+	@Bean
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+		SimpleMappingExceptionResolver  exceptionResolver=new SimpleMappingExceptionResolver();
+		exceptionResolver.setDefaultErrorView("error");
+		
+		Properties properties=new Properties();
+		properties.put("java.lang.Exception", "errorbook");
+		
+		resolvers.add(exceptionResolver);
+		//WebMvcConfigurer.super.confi
+	}
+	*/
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		return new CommonsMultipartResolver();
+	}
+
+	
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//	}
+}
